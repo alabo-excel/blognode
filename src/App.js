@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React, {Component} from 'react'
+import Home from './components/home';
+import Header from './components/header';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        articles: null
+      };
+  }
+
+  componentDidMount(){
+    console.log('hello world')
+    fetch('https://newsapi.org/v2/top-headlines?country=ng&apiKey=827c32b5413e420a8367b1ec759a6503')
+    .then(response => response.json())
+    .then(data => {
+      this.setState({articles: data.articles})
+      console.log(this.state.articles)
+    })
+  }
+
+  render(){
+      return (
+        <div className="App">
+        <Header />
+          <Home articles={this.state.articles} />
+        </div>
+      );
+  }
 }
 
 export default App;
