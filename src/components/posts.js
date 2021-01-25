@@ -6,22 +6,36 @@ class App extends Component {
       super(props);
       this.state = {
         articles: null,
-        id: null
+        id: null,
       };
   }
-
   componentDidMount(){
-    let id = this.props.match.params.post_id
+    let all = [];
+    let id = this.props.match.params.post_id;
     fetch('https://newsapi.org/v2/top-headlines?country=ng&apiKey=827c32b5413e420a8367b1ec759a6503')
     .then(response => response.json())
     .then(data => {
-      this.setState({
-        articles: data.articles,
-        id: id})
+      all.push(...data.articles);
     })
+    fetch('http://newsapi.org/v2/top-headlines?country=ng&category=business&apiKey=827c32b5413e420a8367b1ec759a6503')
+    .then(response => response.json())
+    .then(data => {
+      all.push(...data.articles)
+    })
+    fetch('http://newsapi.org/v2/top-headlines?country=ng&category=sports&apiKey=827c32b5413e420a8367b1ec759a6503')
+    .then(response => response.json())
+    .then(data => {
+      all.push(...data.articles)
+    })
+    this.setState({
+      articles: all,
+      id: id})
+
   }
 
   render(){
+    console.log(this.state.articles)
+    console.log(this.state.id)
     const infoData = []
     if(this.state.articles === null){}else{
       this.state.articles.map((article) => {
@@ -31,7 +45,7 @@ class App extends Component {
       })
     }
     if(infoData === []){
-      console.log('true'}else{
+      console.log('true')}else{
         const displayPost = infoData.map((data) =>
         <div id="posts" key={data.title} className="text-left">
           <img id="blogImg" src={data.urlToImage} alt="..." />

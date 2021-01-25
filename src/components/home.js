@@ -33,8 +33,8 @@ function Home(props) {
   }
   return(
     <div className="row">
-    <div className="col-12 mt-2"> <h3>Trending</h3></div>
-    {displayBlog}
+      <div className="col-12 mt-2"> <h3>Trending</h3></div>
+      {displayBlog}
     </div>
   )
 }
