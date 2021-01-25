@@ -14,18 +14,22 @@ class App extends Component {
       };
     this.typeSports = this.typeSports.bind(this)
     this.typeBusinesss = this.typeBusinesss.bind(this)
+    this.trending = this.trending.bind(this)
+
   }
 
   componentDidMount(){
-    fetch('https://newsapi.org/v2/top-headlines?country=ng&apiKey=827c32b5413e420a8367b1ec759a6503')
-    .then(response => response.json())
-    .then(data => {
-      this.setState({
-        articles: data.articles
-      })
-    })
+    this.trending()
   }
-
+  trending(){
+      fetch('https://newsapi.org/v2/top-headlines?country=ng&apiKey=827c32b5413e420a8367b1ec759a6503')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          articles: data.articles
+        })
+      })
+  }
   changeType(){
     fetch('http://newsapi.org/v2/top-headlines?country=ng&category='+this.state.type+'&apiKey=827c32b5413e420a8367b1ec759a6503')
     .then(response => response.json())
@@ -51,7 +55,7 @@ class App extends Component {
       return (
         <BrowserRouter>
         <div className="App">
-        <Header sports={this.typeSports} business={this.typeBusinesss} />
+        <Header sports={this.typeSports} trending={this.trending} business={this.typeBusinesss} />
         <Route exact path='/' component={() => <Home articles={this.state.articles} isAuthed={true} />} />
         <Route path='/:post_id' component={Posts} />
         </div>
