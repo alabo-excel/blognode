@@ -13,9 +13,7 @@ class App extends Component {
   componentDidMount(){
     let all = [];
     let id = this.props.match.params.post_id;
-    this.setState({
-      articles: all,
-      id: id})
+
     fetch('https://newsapi.org/v2/top-headlines?country=ng&apiKey=827c32b5413e420a8367b1ec759a6503')
     .then(response => response.json())
     .then(data => {

@@ -22,9 +22,9 @@ function Home(props) {
       <div className="card-body">
         <h6 className="card-title">{blog.title}</h6>
         <p className="card-text">{blog.description.substr(0, 80)}...</p>
-        <Link to={'/'+ blog.author}>
+        <a href={'/'+ blog.author}>
         <p className="btn btn-primary">Read More</p>
-        </Link>
+        </a>
       </div>
     </div>
     )
